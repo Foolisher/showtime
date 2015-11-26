@@ -12,6 +12,8 @@ class Hello {
         binding.setVariable("age", 23)
         def val = eval(new GroovyScriptEngineImpl(), "return new jdk.klass.UserService()", binding);
         print(val)
+
+
     }
 
 }
