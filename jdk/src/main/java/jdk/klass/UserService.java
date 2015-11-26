@@ -5,4 +5,8 @@ package jdk.klass;
  */
 public class UserService implements IUserService {
 
+    @Override
+    public String hello() {
+        return "name wg";
+    }
 }

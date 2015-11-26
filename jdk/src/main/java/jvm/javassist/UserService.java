@@ -6,8 +6,8 @@ package jvm.javassist;
 public class UserService {
 
 
-    public void say(){
-        System.out.println("Hi");
+    public void say(String word){
+        System.out.println("Hi :"+word);
     }
 
 }

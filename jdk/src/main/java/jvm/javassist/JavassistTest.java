@@ -17,6 +17,7 @@ public class JavassistTest {
         CtClass ctClass = cp.get("jvm.javassist.UserService");
         for (CtMethod ctMethod : ctClass.getDeclaredMethods()) {
             ctMethod.insertBefore("System.out.println(this);");
+
         }
 
         ctClass.toBytecode(new DataOutputStream(new FileOutputStream("UserService.class")));
@@ -25,7 +26,7 @@ public class JavassistTest {
 
         UserService userService = (UserService)aClass.newInstance();
 
-        userService.say();
+        userService.say("wg");
 
     }
 
