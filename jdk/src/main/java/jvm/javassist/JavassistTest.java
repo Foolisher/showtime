@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import java.io.*;
 
-/**
- * Created by wanggen on 15/11/21.
- */
 public class JavassistTest {
 
 
