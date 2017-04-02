@@ -10,7 +10,7 @@ import io.netty.channel.ChannelHandlerAdapter;
  */
 public class DiscardServerHandler extends ChannelHandlerAdapter { // (1)
 
-    @Override
+//    @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) { // (2)
         // Discard the received data silently.
         ((ByteBuf) msg).release(); // (3)

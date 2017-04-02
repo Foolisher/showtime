@@ -1,9 +1,15 @@
 package jvm.javassist;
 
-import javassist.*;
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtMethod;
+import javassist.NotFoundException;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class JavassistTest {
 
@@ -14,7 +20,6 @@ public class JavassistTest {
         CtClass ctClass = cp.get("jvm.javassist.UserService");
         for (CtMethod ctMethod : ctClass.getDeclaredMethods()) {
             ctMethod.insertBefore("System.out.println(this);");
-
         }
 
         ctClass.toBytecode(new DataOutputStream(new FileOutputStream("UserService.class")));

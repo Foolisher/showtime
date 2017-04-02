@@ -114,7 +114,42 @@ public class StreamTester {
             }
         });
 
+
+
+
     }
+
+
+
+    @Test
+    public void test3(){
+        // len:100000
+        // 看来 Stream 太慢了啊
+
+        int len = 100000;
+
+        String[] arr = new String[len];
+        for(int i=0;i<len;i++)
+            arr[i] = i+"";
+
+        Lists.transform(Lists.newArrayList(), a->a);
+
+        long start = System.currentTimeMillis();
+        Lists.transform(Lists.newArrayList(arr), new com.google.common.base.Function<String,Long>() {
+            @Override
+            public Long apply(String input) {
+                return Long.valueOf(input);
+            }
+        });
+        System.out.println("1:"+(System.currentTimeMillis()-start));
+
+        start = System.currentTimeMillis();
+        Stream.of(arr).mapToLong(Long::valueOf).toArray();
+        System.out.println("2:"+(System.currentTimeMillis()-start));
+
+    }
+
+
 
 
 

@@ -2,7 +2,7 @@
 
 importScripts('./user.js')
 
-say('Íõ¸ù')
+say('ç‹æ ¹')
 
 
 

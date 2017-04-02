@@ -20,7 +20,7 @@ import static java.nio.channels.Selector.open;
  * Desc:
  * Created by wanggen on 2015-12-10 下午1:37.
  */
-@Slf4j
+//@Slf4j
 public class Server {
 
 
@@ -34,7 +34,7 @@ public class Server {
         Selector selector = open();
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
-        while (selector.select() > 0) {
+        while (selector.select(100) > 0) {
             System.out.println("New connection comming");
             Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
 
@@ -77,7 +77,6 @@ public class Server {
                     while ((len = channel.read(buf)) > 0) {
                         buf.flip();
                         System.out.println(new String(buf.array(), 0, len));
-                        buf.clear();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -102,13 +101,14 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            this.handler = handler;
         }
 
         @Override
         public void run() {
             try {
                 socketChannel.register(selector, SelectionKey.OP_READ);
-                while (selector.select() > 0) {
+                while (selector.select(50) > 0) {
                     handleEvent();
                 }
             } catch (IOException e) {

@@ -1,3 +1,11 @@
+
+
 rootProject.name = 'showtime'
+
+
 include 'hbase'
-include('jdk')
+include 'jdk'
+include 'db'
+include 'spring-test'
+
+include "buildSrc"

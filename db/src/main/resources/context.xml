@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+               http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+               http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+      >
+
+
+    <bean id="dataSource" class="com.taobao.tddl.client.jdbc.TDataSource" init-method="init">
+        <property name="appName" value="${db.app.name}"/>
+        <property name="dynamicRule" value="true"/>
+    </bean>
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:persistence/mappers_common/**/*.xml"/>
+        <property name="configLocation" value="classpath:persistence/mybatis-config_common.xml"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!-- sequence configure -->
+    <bean id="sequenceDao" class="com.taobao.tddl.client.sequence.impl.GroupSequenceDao" init-method="init">
+        <property name="appName" value="${db.app.name}"/>
+        <property name="dscount" value="1"/>
+        <!--不一定选择所有的库来生成，一般有容灾即可，需要在这些group对应的库上建sequence表，字段默认为name(varchar),value(bigint),gmt_modified(datetime) -->
+        <property name="dbGroupKeys">
+            <list>
+                <value>${db.group.key}</value>
+            </list>
+        </property>
+        <property name="innerStep" value="100"/>
+        <!-- 自动初始化值，sequence_3.2以上推荐配置为true -->
+        <property name="adjust" value="true"/>
+    </bean>
+
+    <bean id="bpAppsSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="bp_apps_seq"/>
+    </bean>
+
+    <bean id="bpTopicsSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="bp_topics_seq"/>
+    </bean>
+
+    <bean id="bpPostsSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="bp_posts_seq"/>
+    </bean>
+
+    <bean id="bpRepliesSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="bp_replies_seq"/>
+    </bean>
+
+    <bean id="bpCommentsSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="bp_comments_seq"/>
+    </bean>
+
+    <bean id="bpLikesSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="bp_likes_seq"/>
+    </bean>
+
+    <bean id="tagSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="tag_seq"/>
+    </bean>
+
+    <!-- 权限的sequence -->
+
+    <bean id="bpAppPermissionConfigSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="bp_app_permission_config_seq"/>
+    </bean>
+
+    <!-- <bean id="bpPermissionSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao" />
+        sequence生成器名,对应sequence表中一条记录的name字段值
+        <property name="name" value="bp_permission_seq" />
+    </bean> -->
+
+    <bean id="bpPermissionUserListSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="bp_permission_user_list_seq"/>
+    </bean>
+
+    <bean id="bpRolePermissionSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao"/>
+        <!-- sequence生成器名,对应sequence表中一条记录的name字段值 -->
+        <property name="name" value="bp_role_permission_seq"/>
+    </bean>
+
+    <!-- <bean id="bpRoleSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao" />
+        sequence生成器名,对应sequence表中一条记录的name字段值
+        <property name="name" value="bp_role_seq" />
+    </bean> -->
+
+    <!-- <bean id="bpRoleUserSeq" class="com.taobao.tddl.client.sequence.impl.GroupSequence" init-method="init">
+        <property name="sequenceDao" ref="sequenceDao" />
+        sequence生成器名,对应sequence表中一条记录的name字段值
+        <property name="name" value="bp_role_user_seq" />
+    </bean> -->
+
+</beans>
