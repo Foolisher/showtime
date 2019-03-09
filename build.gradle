@@ -8,25 +8,18 @@ buildscript {
 
 }
 
-//dependencies {
-//  compile('com.google.code.gson:gson:2.5')
-//  compile('org.codehaus.groovy:groovy-all:2.3.11')
-//  compile('com.google.guava:guava:18.0')
-//  compile('com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.4.2')
-//  compile('com.fasterxml.jackson.core:jackson-core:2.5.0')
-//  compile('junit:junit:4.10')
-//}
-
-
 group 'wanggen'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'groovy'
 apply plugin: 'java'
-apply plugin: 'scala'
+//apply plugin: 'scala'
 
 sourceCompatibility = 1.8
 
+dependencies {
+  compile('joda-time:joda-time:2.9.9')
+}
 
 allprojects {
 
@@ -43,6 +36,31 @@ allprojects {
 }
 
 
+project(':leetcode') {
+  apply plugin: 'java'
+  version '1.0'
+
+  dependencies {
+    compile('com.google.code.gson:gson:2.8.2')
+    compile('com.google.guava:guava-parent:21.0')
+    compile('fastjson')
+  }
+
+}
+
+
+
+project(':spring-test') {
+  apply plugin: 'java'
+
+  dependencies {
+    compile('org.springframework:spring-webmvc:5.0.4.RELEASE')
+    compile('joda-time:joda-time:2.9.9')
+    compile('junit:junit:4.12')
+  }
+
+}
+
 project('jdk') {
 
   version '1.0-SNAPSHOT'
@@ -52,9 +70,6 @@ project('jdk') {
 
     compile('org.codehaus.groovy:groovy-all:2.3.11')
 
-    compile('org.projectlombok:lombok:1.16.16')
-
-    compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.4.2'
     compile 'com.fasterxml.jackson.core:jackson-core:2.5.0'
     compile 'org.elasticsearch:elasticsearch:2.1.0'
@@ -68,26 +83,11 @@ project('jdk') {
     compile('org.apache.poi:poi:3.13')
     compile('org.apache.poi:poi-ooxml:3.10-FINAL')
     compile('org.mybatis:mybatis:3.4.2')
+    compile('com.google.code.gson:gson:2.8.2')
+    compile('org.projectlombok:lombok:1.16.18')
+    compile('org.javassist:javassist:3.22.0-CR2')
 
     compile('junit:junit:4.10')
   }
 
 }
-
-project('jdk') {
-
-  apply plugin: 'java'
-
-  dependencies {
-
-    compile('com.taobao.tddl:tddl-all:3.3.1.0')
-    compile('com.taobao.tddl:tddl-atom:5.1.25-3')
-    compile('com.taobao.tddl:tddl-client:5.1.25-3')
-    compile('com.taobao.tddl:tddl:5.1.25-3')
-
-    compile('org.springframework:spring-jdbc:4.3.3.RELEASE')
-
-  }
-
-}
-

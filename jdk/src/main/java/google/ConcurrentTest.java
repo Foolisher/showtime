@@ -20,13 +20,14 @@ public class ConcurrentTest extends TestCase {
 
 
 		ListenableFuture<Long> f = service.submit(System::currentTimeMillis);
+		f = service.submit(()-> {return 100l/new Integer(0);});
 		Futures.addCallback(f, new FutureCallback<Object>() {
 			public void onSuccess( Object result) {
 				System.out.println(result);
 			}
 
 			public void onFailure(Throwable t) {
-
+				System.out.println(t);
 			}
 		});
 

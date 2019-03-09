@@ -10,6 +10,9 @@ class Hello {
     def val = eval(new GroovyScriptEngineImpl(), "return new jdk.klass.UserService()", binding);
     print(val)
 
+    use(org.codehaus.groovy.runtime.TimeCategory){
+
+    }
 
   }
 
