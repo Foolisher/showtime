@@ -43,7 +43,6 @@ project(':leetcode') {
   dependencies {
     compile('com.google.code.gson:gson:2.8.2')
     compile('com.google.guava:guava-parent:21.0')
-    compile('fastjson')
   }
 
 }
