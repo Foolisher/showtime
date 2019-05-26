@@ -37,10 +37,16 @@ class Solution {
             while (i < j && i + 1 < nums.length && j > 0) {
                 if (nums[i] > nums[i + 1]) {
                     t = i;
+                    if (nums[i] == target) {
+                        return i;
+                    }
                     break;
                 }
                 if (nums[j] < nums[j - 1]) {
                     t = j - 1;
+                    if (nums[j] == target) {
+                        return j;
+                    }
                     break;
                 }
                 i++;

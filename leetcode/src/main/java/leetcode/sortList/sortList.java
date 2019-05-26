@@ -22,15 +22,14 @@ class Solution {
         if (head == null) {
             return null;
         }
-        ListNode it = head;
-        ListNode head0 = head;
 
-//        while (true) {
-//            if (it.next != null && it.next.val < it.val) {
-//                ListNode next = it.next;
-//            }
-//        }
+        while (head.next != null) {
+            ListNode it = head;
+            while (it.val > it.next.val) {
 
-        return head0;
+            }
+        }
+
+        return head;
     }
 }
